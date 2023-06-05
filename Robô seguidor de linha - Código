@@ -1,0 +1,115 @@
+#include <Arduino.h>
+#include <QTRSensors.h>
+
+QTRSensors qtr;
+
+const uint8_t SensorCount = 6;
+uint16_t sensorValues[SensorCount];
+
+int dir = 1;
+
+//motores
+const int dirP = 6; 
+const int esqP = 3; 
+const int dirA = 5; 
+const int dirB = 7; 
+const int esqA = 2; 
+const int esqB = 4;
+
+void setup()
+{
+  Serial.begin(9600);
+  // configure the sensors
+  qtr.setTypeAnalog();
+  qtr.setSensorPins((const uint8_t[]){A0, A1, A2, A3, A4, A5}, SensorCount);
+  qtr.setEmitterPin(2);
+
+  delay(500);
+  pinMode(LED_BUILTIN, OUTPUT);
+  digitalWrite(LED_BUILTIN, HIGH); 
+  for (uint16_t i = 0; i < 2000; i++)
+  {
+    qtr.calibrate();
+  }
+  digitalWrite(LED_BUILTIN, LOW);
+
+}
+
+void loop()
+{
+  uint16_t position = qtr.readLineWhite(sensorValues);
+  int sP = position - 2500;
+
+  digitalWrite(dirA, HIGH); //SENTIDO DE ROTACAO
+  digitalWrite(dirB, LOW);
+  analogWrite(dirP, 255);
+
+  digitalWrite(esqA, HIGH); //SENTIDO DE ROTACAO
+  digitalWrite(esqB, LOW);
+  analogWrite(esqP, 255);
+
+  if(sP > -500 && sP < 500){
+    run(255,255);
+    Serial.print("sP > -500 && sP < 500\n");
+  }if(sP < -500){
+    run(50,130);
+    Serial.print("sP < -500\n");
+    dir = 1;
+  }if(sP < -2000){
+    run(0,130);
+    Serial.print("sP < -2000\n");
+    dir = 1;
+  }if(sP > 500){
+    run(130,50);
+    Serial.print("sP > 500\n"); 
+    dir = 0;
+  }if(sP > 2000){
+    run(130,0);
+    Serial.print("sP > 2000\n");
+    dir = 0;
+  }else{
+    if(dir == 1){
+      Serial.print("dir == 1\n");
+      run(0,130);      
+    }else{
+      run(130,0);
+    }
+  }
+
+}
+
+void run(int a, int b){
+  if(a >= 0 && b >= 0){
+    digitalWrite(dirA, 1);
+    digitalWrite(dirB, 0);
+    digitalWrite(esqA, 1);
+    digitalWrite(esqB, 0);
+    analogWrite(dirP, a);
+    analogWrite(esqP, b);
+  }else if(a >= 0 && b < 0){
+    b = -b;
+    digitalWrite(dirA, 0);
+    digitalWrite(dirB, 1);
+    digitalWrite(esqA, 1);
+    digitalWrite(esqB, 0);
+    analogWrite(dirP, a);
+    analogWrite(esqP, b);    
+  }else if(a < 0 && b >= 0){
+    a = -a;
+    digitalWrite(dirA, 1);
+    digitalWrite(dirB, 0);
+    digitalWrite(esqA, 0);
+    digitalWrite(esqB, 1);
+    analogWrite(dirP, a);
+    analogWrite(esqP, b);
+  }else{
+    a = -a;
+    b = -b;
+    digitalWrite(dirA, 0);
+    digitalWrite(dirB, 1);
+    digitalWrite(esqA, 0);
+    digitalWrite(esqB, 1);
+    analogWrite(dirP, a);
+    analogWrite(esqP, b);
+  }
+}
