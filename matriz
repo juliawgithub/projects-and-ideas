@@ -1,0 +1,242 @@
+//1. Faça um programa que possua um matriz 3x3 denominado M 
+//que armazene 9 números inteiros e valores iniciais {1,2,3,4,5,6,7,8,9}.
+#include <stdio.h>
+
+int main() {
+    int M[3][3] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+    int i, j, subt;
+
+    printf("Matriz M:\n");
+    for (i = 0; i < 3; i++) {
+        for (j = 0; j < 3; j++) {
+            printf("%d ", M[i][j]);
+        }
+        printf("\n");
+    }
+    
+//(a) Atribua/mude o valor para 50 na linha 2, coluna 2 (quinto elemento) e 
+//para 40 na quarta posição da matriz M e mostre na tela.
+
+    M[1][1] = 50;
+    M[2][0] = 40;
+    
+    printf("Matriz M apos modificar:\n");
+    for (i = 0; i < 3; i++) {
+        for (j = 0; j < 3; j++) {
+            printf("%d ", M[i][j]);
+        }
+        printf("\n");
+}
+
+//(b) Armazene em uma variável inteira (simples) a soma entre os valores das posições 
+//M[0][1], M[1][1] e M[2][2] da matriz e mostre na tela esta soma. 
+
+    int soma = M[0][1] + M[1][1] + M[2][2];
+     printf("a soma eh: %i\n", soma);
+    
+//(c) Leia (scanf) novos valores para M nas posições 0 a 6, utilizando FOR.
+
+    printf("Digite novos valores para a matriz M da posicao 0 ate a 6:\n");
+    for (i = 0; i < 2; i++) {
+        for (j = 0; j < 3; j++) {
+            scanf("%d", &M[i][j]);
+        }
+    }
+//(d) Mostre na tela toda a matriz, no formato de matrizes (pulando linhas quando necessário) usando FOR
+
+    printf("Matriz M completa:\n");
+    for (i = 0; i < 3; i++) {
+        for (j = 0; j < 3; j++) {
+            printf("%d ", M[i][j]);
+        }
+        printf("\n");
+    }
+//(e) Faça a divisão do último elemento pelo primeiro elemento da matriz M.
+
+    int divisao= (float)M[2][2] / M[0][0]; 
+    
+//(f) Faça a subtração de todos os elementos da matriz com WHILE()
+
+    i = 0;
+while (i<3) {
+   
+	j = 0;
+	while (j<3) {
+
+		if (i == 0 && j == 0) {
+			subt = M[i][j];
+		} else {
+			subt-= M[i][j];
+		}
+		
+		j++;
+	}
+	
+	i++;
+}
+
+    printf("subtracao eh: %i", subt);
+
+    
+    return 0;
+}
+
+//2. Construa um algoritmo que leia duas matrizes
+//3x3 e gere uma terceira matriz com a soma dos elementos correspondentes de a e b.
+#include <stdio.h>
+
+int main()
+{
+    int A[3][3], B[3][3], soma[3][3], i, j; 
+
+    printf("Digite os numeros da matriz A:\n");
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            scanf("%i", &A[i][j]);
+        }
+    }
+
+    printf("Digite os numeros da matriz B:\n");
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            scanf("%i", &B[i][j]);
+        }
+    }
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            soma[i][j] = A[i][j] + B[i][j];
+        }
+    }
+
+    printf("A soma das matrizes A e B gera a matriz:\n");
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            printf("%i ", soma[i][j]); 
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
+//3. Construa um algoritmo que leia uma matriz quadrada de ordem 4. 
+//Leia uma constante K, multiplique a diagonal principal por esta constante e imprima a matriz multiplicada.
+#include <stdio.h>
+
+int main()
+{
+    int mat[4][4];
+    int k, i, j;
+    
+    printf("digite os numeros da matriz: ");
+    for(i=0;i<4;i++){
+        for(j=0;j<4;j++){
+            scanf("%i",&mat[i][j]); 
+        }
+    }
+    
+    printf("digite a constante K: ");
+    scanf("%i",&k);
+    
+    for (i = 0; i < 4; i++) {
+        for (j = 0; j < 4; j++) {
+             if(i == j){
+                mat[i][j] *= k;
+             }
+        }
+    }
+   
+    for(i=0;i<4;i++){
+        for(j=0;j<4;j++){
+            printf("%i ", mat[i][j]); 
+        }
+      printf("\n");
+    }
+    
+    
+    
+
+    return 0;
+}
+/*4. Faça um programa que simule um Gaveteiro com 8 gavetas no total, 
+sendo 4 gavetas na parte de cima e mais 4 gavetas na parte de baixo do móvel.
+4.1) Você deve definir inicialmente a quantidade de roupas colocadas em cada gaveta (entre 0 e 5 roupas);
+
+4.2) agora, deve ser solicitado ao usuário se ele deseja retirar ou adicionar roupas e a quantidade desejada.
+
+- Quando retirar, não deve permitir retirar uma quantidade maior que a disponível na gaveta e também informar
+caso a gaveta esteja vazia. Deve atualizar e mostrar a nova quantidade de roupas disponível nas gavetas e no 
+gaveteiro como um todo.
+
+- Quando adicionar, não deve permitir adicionar uma quantidade maior que a disponível na gaveta e também 
+informar caso a gaveta esteja cheia (5 roupas). Deve atualizar e mostrar a nova quantidade de roupas disponível 
+nas gavetas e no gaveteiro como um todo.*/
+#include <stdio.h>
+
+void retirar(int mat[][4], int gaveta, int num);
+void colocar(int mat[][4], int gaveta, int num);
+
+int main() {
+    int mat[2][4] = {{4, 2, 1, 4},
+                     {5, 4, 3, 2}};
+    int gaveta, num;
+    char op;
+
+    while (op != 'q') {
+        printf("Quantidade de peças:\n");
+        printf("Gaveta 1 de cima: %i\n", mat[0][0]);
+        printf("Gaveta 2 de cima: %i\n", mat[0][1]);
+        printf("Gaveta 3 de cima: %i\n", mat[0][2]);
+        printf("Gaveta 4 de cima: %i\n", mat[0][3]);
+        printf("Gaveta 5 de baixo: %i\n", mat[1][0]);
+        printf("Gaveta 6 de baixo: %i\n", mat[1][1]);
+        printf("Gaveta 7 de baixo: %i\n", mat[1][2]);
+        printf("Gaveta 8 de baixo: %i\n", mat[1][3]);
+        printf("Deseja retirar (r), colocar (c) peças ou sair (q)? ");
+        scanf(" %c", &op);
+
+        switch (op) {
+            case 'r':
+                printf("Quantas peças voce deseja retirar? ");
+                scanf("%i", &num);
+                printf("Em qual gaveta voce deseja retirar? ");
+                scanf("%i", &gaveta);
+                retirar(mat, gaveta - 1, num);
+                break;
+            case 'c':
+                printf("Quantas peças voce deseja colocar? ");
+                scanf("%i", &num);
+                printf("Em qual gaveta voce deseja colocar? ");
+                scanf("%i", &gaveta);
+                colocar(mat, gaveta - 1, num);
+                break;
+            case 'q':
+                break;
+            default:
+                printf("Opcao invalida!\n");
+        }
+    }
+
+    return 0;
+}
+
+void retirar(int mat[][4], int gaveta, int num) {
+    if (mat[gaveta / 4][gaveta % 4] == 0) {
+        printf("A gaveta esta vazia, nao eh possivel retirar!\n");
+    } else if (mat[gaveta / 4][gaveta % 4] < num) {
+        printf("A quantidade desejada é maior do que a disponível na gaveta!\n");
+    } else {
+        mat[gaveta / 4][gaveta % 4] -= num;
+        printf("Foram retiradas %i roupas da gaveta %i.\n", num, gaveta + 1);
+    }
+}
+
+void colocar(int mat[][4], int gaveta, int num) {
+    if (mat[gaveta / 4][gaveta % 4] == 5) {
+        printf("A gaveta esta cheia, nao eh possivel colocar mais peças!\n");
+    } else if (mat[gaveta / 4][gaveta % 4] + num > 5) {
+        printf("A quantidade desejada excede o espaço disponivel na gaveta!\n");
+    } else {
+        mat[gaveta / 4][gaveta % 4] += num;
+        printf("Foram colocadas %i roupas na gaveta %i.\n", num, gaveta + 1);
+    }
+}
