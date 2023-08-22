@@ -1,0 +1,267 @@
+//1. Criar um programa que armazene o nome e a idade de uma lista de pessoas em
+//vetores, e calcule a média de idade da lista. (ex: nomes[5][30] –> vetor de 5 nomes)
+#include <stdio.h>
+#include <string.h>
+
+#define nome 50
+
+int main(void) {
+	char palavras[4][nome];
+	int idade[4];
+	int i, soma=0;
+	float media;
+
+    for(i = 0; i < 4; i++) {
+    	printf("\nDigite o %i o nome: ", i + 1);
+        scanf("%c",&palavras[i]);
+        fflush(stdin);
+        
+        printf("\nDigite a idade da %i a pessoa: ", i + 1);
+        scanf("%i ",&idade[i]);
+        fflush(stdin);
+        
+        soma += idade[i]; 
+    }
+	
+	for(i=0; i < 4; i++) {
+		printf("%c %i ", palavras[i], idade[i]); 
+	}
+	
+	media = soma/4; 
+	printf("media das idades eh: %f ", media);
+	
+	
+	
+return 0;
+}
+
+//2. Construa um algoritmo que leia um vetor de 10 caracteres, 
+//e diga quantas consoantes foram lidas. Imprima as consoantes.
+#include <stdio.h>
+
+int main() {
+    char caracteres[10];
+    int i, consoantes = 0;
+    
+    printf("Digite 10 caracteres:\n");
+    for(i = 0; i < 10; i++) {
+        scanf(" %c", &caracteres[i]);
+        
+        if((caracteres[i] >= 'a' && caracteres[i] <= 'z') || (caracteres[i] >= 'A' && caracteres[i] <= 'Z')) {
+            if(caracteres[i] != 'a' && caracteres[i] != 'e' && caracteres[i] != 'i' && caracteres[i] != 'o' && caracteres[i] != 'u' && caracteres[i] != 'A' && caracteres[i] != 'E' && caracteres[i] != 'I' && caracteres[i] != 'O' && caracteres[i] != 'U') {
+                consoantes++;
+                printf(" %c", caracteres[i]);
+            }
+        }
+    }
+    
+    printf(" \nForam lidas %d consoantes.", consoantes);
+    
+    return 0;
+}
+/*Faça um programa que possua um vetor de caracteres (aka. String) com 7 posições e valor inicial a palavra 
+“OLA”. O programa deve executar os seguintes passos:*/
+
+#include <stdio.h>
+#include <string.h>
+
+int main(){
+    
+    char palavra[7] = {'o','l','a'};
+    int i;
+//(a) Atribua manualmente um a um estes valores ao vetor: ‘b’, ‘r’, ‘a’, ‘s’, ‘i’, ‘l’,’\0’.    
+    palavra[0] = 'b';
+    palavra[1] = 'r';
+    palavra[2] = 'a';
+    palavra[3] = 's';
+    palavra[4] = 'i';
+    palavra[5] = 'l';
+    palavra[6] = '\0';
+
+//(b) Mostre na tela a palavra/vetor, utilizando WHILE() para imprimir letra por letra da palavra 
+
+    while(palavra[i] != 0){
+        for(int i = 0; i < 6; i++){
+            printf("\n%c", palavra[i]);
+        }
+        break;
+    }
+
+//(c) Converta a palavra para maiúsculo utilizando valores TABELA ASCII
+//Tabela ASCII: https://www.ime.usp.br/~pf/algoritmos/apend/ascii.html
+
+//(d) Substitua as letras ‘A’ pelo número 4 e “I’ pelo número 1
+
+    while (palavra[i] != 0){
+        
+        if (palavra[i] >= 'a' && palavra[i] <= 'z') {
+            palavra[i] = palavra[i] - 32;
+            printf("\n%c", palavra[i]);
+        } 
+        
+       if (palavra[i] == 'A') {
+        palavra[i] = '4';
+    }
+    
+        if (palavra[i] == 'I') {
+        palavra[i] = '1';
+    }
+    
+        printf("%c", palavra[i]);
+        i++;  
+}
+
+//(e) Exclua a última letra da palavra, utilizando caractere terminador (identifica o final da String)
+    
+    for(i=0;i<7;i++){
+       if (palavra[i]=='\0'){
+           palavra[i-1]='\0';
+           break;
+       }
+    }  printf("\n%c", palavra[i]); 
+
+//(f) Calcule o tamanho preenchido do Vetor (Tamanho da palavra), percorrendo-a com FOR
+
+    int tamanho = 0;
+    for (i = 0; palavra[i] != '\0'; i++) {
+        tamanho++;
+    }
+        printf("\ntamanho da palavra: %i", tamanho);
+
+//(g) Leia (scanf) duas letras juntas (ex: “R4” em “BR4S1L”) e informe se encontrou ou não. 
+//nesse caso refiz a palavra "brasil".
+
+    char letras[2];
+    char word[7] = {'b', 'r', 'a', 's', 'i', 'l', '\0'};
+    int h, l;
+    int encontrou = 0;
+    
+    for (h = 0; h < 2; h++) {
+        printf("\nDigite uma letra: ");
+        scanf(" %c", &letras[h]);
+    }
+    
+    for (h = 0; h < 2; h++) {
+        for (l = 0; l < 7; l++) {
+            if (letras[0] && letras[1] == word[l]) {
+                encontrou = 1;
+                break;
+            }
+        }
+    }
+    
+    if (encontrou) {
+        printf("Encontrei na palavra.\n");
+    } else {
+        printf("Nao encontrei na palavra.\n");
+    }
+    
+    return 0;
+}
+
+/* 4) Criar um programa que leia uma frase em uma string S[] (use gets(), scanf([] ou fgets()). Para as questões abaixo, NÃO devem ser usada funções prontas do C. */
+/* a. Faça uma busca por uma palavra ou parte dela (sub-string) dentro da string S e retorne se encontrou ou não como resultado (mesma lógica da letra “g” da questão 3).*/
+#include <stdio.h>
+
+int main(void) {
+    char buscaParte[10];
+    char S[50];
+    int encontrou = 0;
+    int i, j;
+
+    printf("digite uma frase: ");
+    scanf("%49[^\n]%*c", S);
+
+    printf("digite uma palavra ou parte dela: ");
+    scanf("%s", buscaParte);
+
+    for (i = 0; S[i] != '\0'; i++) {
+        if (S[i] == buscaParte[0]) {
+            for (j = 0; buscaParte[j] != '\0'; j++) {
+                if (S[i] != buscaParte[j]) {
+                    break;
+                }
+                i++;
+            }
+            if (buscaParte[j] == '\0') {
+                encontrou = 1;
+                break;
+            }
+        }
+    }
+
+    if (encontrou) {
+        printf("'%s' foi encontrado na frase.\n", buscaParte);
+    } else {
+        printf("'%s' nao foi encontrado na frase.\n", buscaParte);
+    }
+    
+/*  b) Calcule e exiba o tamanho/quantidade de caracteres da frase/String */
+	int soma = 0;
+	for (i=0; S[i] != '\0'; i++){
+	soma++;
+	}
+	printf("tamanho da string: %i caracteres\n", soma);
+	
+/* c) Informe uma segunda frase e faça a comparação se a frase é igual à frase contida na string S. (aqui o codigo esta funcionando mais ou menos, mas esta imprimindo 2 vezes qnd eh igual, e qnd bota uma letra igual ele aparece como se a frase fosse igual tb, e n sei como arrumar) */
+	char S2[50];	
+	printf("digite uma nova frase: ");
+    scanf("%s", S2); 
+
+    for (i = 0; S[i] != '\0' && S2[i] != '\0'; i++) {
+        if (S[i] != S2[i]) {
+            printf("a segunda frase eh diferente da primeira.\n");
+            break;
+        }
+        else{
+        	printf("a segunda frase eh igual a primeira.\n");
+		}
+    }
+
+/* d) Substitua o valor da string S por “catolica” (não fucionará S = “catolica”, então deverá substituir letra a letra através e adicionar ‘\0’ ao final. Após, testar o tamanho da nova string com a lógica da letra “b”. */
+   S[0] = 'c';
+   S[1] = 'a';
+   S[2] = 't';
+   S[3] = 'o';
+   S[4] = 'l';
+   S[5] = 'i';
+   S[6] = 'c';
+   S[7] = 'a';
+   S[8] = '\0';
+   
+   	soma = 0;
+	for (i=0; S[i] != '\0'; i++){
+	soma++;
+	}
+	printf("nova string: %s\n", S);
+	printf("tamanho da nova string: %i caracteres\n", soma);
+  
+
+    return 0;
+}
+//5. Criar um programa que leia uma palavra com fgets(), guarde na variável palavra e imprima na tela o seguinte texto (tudo na mesma linha):
+//Saída ----> “Palavra <palavra> lida com fgets()”.
+//(dica: Será necessário retirar o ‘\n’ ao final da variável <palavra>).
+#include <stdio.h>
+#define MAX_WORDS 50
+
+int main(){
+    
+    int i = 0;
+    char palavra[MAX_WORDS];
+    printf("Digite uma palavra: ");
+    fgets(palavra, MAX_WORDS, stdin);
+
+
+    for(i = 0; palavra[i] != '\0'; i++){
+        if(palavra[i] == '\n'){
+            palavra[i] = '\0';
+        }
+    }
+    
+    printf("Palavra %s lida com fgets()", palavra);
+    
+    return 0;
+    
+}
+
