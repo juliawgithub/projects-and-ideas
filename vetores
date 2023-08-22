@@ -1,1 +1,193 @@
+//1. Construa um algoritmo que leia (scanf) um vetor de 5 números inteiros e mostre a
+//soma dos números e os valores do vetor. (Use forma contraída para realizar a soma)
+#include <stdio.h>
+
+int main() {
+    int numeros[5];
+    int i, soma = 0;
+    
+    for(i = 0; i < 5; i++) {
+        printf("Digite um número inteiro: ");
+        scanf("%d", &numeros[i]);
+        fflush(stdin);
+    }
+    
+    for(i = 0; i < 5; i++) {
+        soma += numeros[i];
+    }
+    
+    printf("A soma dos números é %d.", soma);
+    fflush(stdin);
+    
+    return 0;
+} 
+
+//2. Construa um algoritmo que leia um vetor de 5 números reais e mostre-os na
+//ordem inversa.
+#include <stdio.h>
+
+int main() {
+    int numeros[5];
+    int i;
+    
+    for(i = 0; i < 5; i++) {
+        printf("Digite um número inteiro: ");
+        scanf("%d", &numeros[i]);
+        fflush(stdin);
+    }
+    
+    printf("Números em ordem inversa: ");
+    for(i = 4; i >= 0; i--) {
+        printf("%i", numeros[i]);
+        fflush(stdin);
+    }
+    
+    return 0;
+}
+
+/*3. Faça um programa que possua um vetor denominado A que armazene 6 números
+inteiros e valores iniciais {1,2,3,4,5,6}. O programa deve executar os seguintes passos:
+
+(a) Atribua os seguintes valores a esse vetor: 1, 0, 5, -2, -5, 7. */
+
+#include <stdio.h>
+
+int main() {
+    int A[6] = {1, 2, 3, 4, 5, 6};
+    int i=0, soma, divi, subt;
+    
+    A[0]=1; A[1]=0; A[2]=5; A[3]=-2; A[4]=-5; A[5]=7;
+
+    printf("Valores iniciais do vetor A: ");
+    for (i = 0; i < 6; i++) {
+        printf("%d ", A[i]);
+    }
+    
+//(b) Armazene em uma variável inteira (simples) a soma entre 
+//os valores das posições A[0], A[1] e A[5] do vetor e mostre na tela esta soma.
+
+    soma = A[0] + A[1] + A[5];
+    printf("\nSoma dos valores de A[0], A[1] e A[5]: %d\n", soma);
+    
+//(c) Modifique o vetor na posição 1, atribuindo a esta posição o valor 10.
+
+    A[1]=10; 
+    
+//(d) Leia (scanf) novos valores para A nas posições 3 e 4 e mostre na tela cada valor 
+//do vetor A (ou seja, todo o vetor A), um em cada linha, utilizando FOR.
+
+    printf("Digite um novo valor para A[3]: ");
+    scanf("%d", &A[3]);
+
+    printf("Digite um novo valor para A[4]: ");
+    scanf("%d", &A[4]);
+    
+    printf("Valores do A:\n");
+    for (i = 0; i < 6; i++) {
+        printf("%d\n", A[i]);
+    }
+
+//(e) Mostre na tela os números de posições pares e zero, de forma inversa (i == 4,2 e 0) c/ FOR
+
+    for(i=5; i >= 0; i-=2){
+        printf("\n%i", A[i]);
+    }
+
+//Faça a divisão do elemento da última posição pela primeira posição do vetor A.
+
+    divi = A[5] / A[0];
+    printf("\nDivisao dos valores de A[6] e A[0]: %d\n", divi);
+
+//(g) Faça a subtração de todos os elementos do vetor com DO WHILE() 
+
+    do {
+       subt -= A[i] ;
+       i++; 
+    } while (i<6);
+    
+    printf("valor da subtracao do vetor A: %i", subt); 
+    
+    
+    return 0;
+    
+}
+/*4. Faça um programa que utilize vetores para armazenar as temperaturas 
+em diferentes pontos de um ambiente, e calcule a temperatura média do ambiente como um todo.*/
+
+#include <stdio.h>
+
+int main() {
+    int pontos, i, soma_temperaturas, temperaturas[i];
+    float temperatura_media; 
+    
+    printf("Informe a quantidade de pontos de temperatura em um determinado ambiente: ");
+    scanf("%i", &pontos);
+
+    for (int i = 0; i < pontos; i++) {
+        printf("Informe a temperatura no ponto %i: ", i + 1);
+        scanf("%i", &temperaturas[i]);
+        soma_temperaturas += temperaturas[i];
+    }
+
+    temperatura_media = soma_temperaturas / pontos;
+
+    printf("A temperatura média do ambiente é: %f\n", temperatura_media);
+
+    return 0;
+}
+
+/*Criar um programa que utilize vetores para representar uma pilha de pratos em um restaurante, 
+e permita adicionar ou remover pratos da pilha.*/
+#include <stdio.h>
+#define QTD_PRATOS 5
+
+int main() {
+    int pilha[5];
+    int continuar = 1;
+    char opcao;
+    int ult_prato = -1; 
+    int i;
+
+    while (continuar) {
+        printf("Voce quer retirar ou colocar pratos?: ");
+        printf("\n[R] - Retirar");
+        printf("\n[C] - Colocar\n");
+        scanf(" %c", &opcao);
+
+        switch (opcao) {
+            
+        case 'c':
+        case 'C':
+         if (ult_prato == QTD_PRATOS - 1) {
+         printf("Pilha cheia. Nao e possivel colocar mais pratos.\n");
+            } else {
+                ult_prato++;
+                pilha[ult_prato] = 1;
+                printf("Prato colocado na pilha.\n");
+            }
+                break;
+
+        case 'r':
+        case 'R':
+         if (ult_prato == -1) {
+         printf("Pilha vazia. Nao ha pratos para retirar.\n");
+            } else {
+                pilha[ult_prato] = 0;
+                ult_prato--;
+                printf("Prato retirado da pilha.\n");
+            }
+                break;
+
+        default:
+        printf("Opcao invalida. Por favor, digite R ou C.\n");
+        break;
+        }
+        
+        printf("Quantidade de pratos: %i\n", ult_prato + 1);
+    }
+
+    return 0;
+}
+
+
 
